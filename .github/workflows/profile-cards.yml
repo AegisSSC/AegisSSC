@@ -1,0 +1,77 @@
+name: Update profile cards
+
+on:
+  schedule:
+    - cron: "17 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile-cards
+  cancel-in-progress: true
+
+env:
+  # Shared card options; only the colors differ per theme.
+  LANG_OPTIONS: "layout=compact&langs_count=8&size_weight=0.5&count_weight=0.5&hide=html,css,jupyter%20notebook&card_width=400"
+  STATS_OPTIONS: "show_icons=true&include_all_commits=true&count_private=true"
+  COMMON_OPTIONS: "hide_border=true"
+  DARK: "bg_color=10141A&title_color=C4572E&text_color=E6E9EE&icon_color=C4572E&ring_color=C4572E"
+  LIGHT: "bg_color=F5F3EE&title_color=B83D27&text_color=1C2128&icon_color=B83D27&ring_color=B83D27"
+  CORE_VERSION: "2.2.0"
+
+jobs:
+  cards:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Top languages (dark)
+        uses: stats-organization/github-readme-stats-action@v2
+        with:
+          card: top-langs
+          options: "${{ env.LANG_OPTIONS }}&${{ env.COMMON_OPTIONS }}&${{ env.DARK }}"
+          path: profile/top-langs-dark.svg
+          token: ${{ secrets.PROFILE_CARDS_TOKEN }}
+          core_version: ${{ env.CORE_VERSION }}
+          fail_on_error: true
+
+      - name: Top languages (light)
+        uses: stats-organization/github-readme-stats-action@v2
+        with:
+          card: top-langs
+          options: "${{ env.LANG_OPTIONS }}&${{ env.COMMON_OPTIONS }}&${{ env.LIGHT }}"
+          path: profile/top-langs-light.svg
+          token: ${{ secrets.PROFILE_CARDS_TOKEN }}
+          core_version: ${{ env.CORE_VERSION }}
+          fail_on_error: true
+
+      - name: Stats (dark)
+        uses: stats-organization/github-readme-stats-action@v2
+        with:
+          card: stats
+          options: "${{ env.STATS_OPTIONS }}&${{ env.COMMON_OPTIONS }}&${{ env.DARK }}"
+          path: profile/stats-dark.svg
+          token: ${{ secrets.PROFILE_CARDS_TOKEN }}
+          core_version: ${{ env.CORE_VERSION }}
+          fail_on_error: true
+
+      - name: Stats (light)
+        uses: stats-organization/github-readme-stats-action@v2
+        with:
+          card: stats
+          options: "${{ env.STATS_OPTIONS }}&${{ env.COMMON_OPTIONS }}&${{ env.LIGHT }}"
+          path: profile/stats-light.svg
+          token: ${{ secrets.PROFILE_CARDS_TOKEN }}
+          core_version: ${{ env.CORE_VERSION }}
+          fail_on_error: true
+
+      - name: Commit cards
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add profile/
+          git diff --cached --quiet && exit 0
+          git commit -m "Update profile cards"
+          git push
