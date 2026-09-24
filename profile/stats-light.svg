@@ -9,11 +9,11 @@
         aria-labelledby="descId"
       >
         <title id="titleId">Brandon Wingard&#39;s GitHub Stats, Rank: C</title>
-        <desc id="descId">Total Stars Earned: 1, Total Commits  : 215, Total PRs: 3, Total Issues: 0</desc>
+        <desc id="descId">Total Stars Earned: 1, Total Commits  : 217, Total PRs: 3, Total Issues: 0</desc>
         <style>
           .header {
             font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif;
-            fill: #1f2328;
+            fill: #0969da;
             animation: fadeInAnimation 0.8s ease-in-out forwards;
           }
           @supports(-moz-appearance: auto) {
@@ -51,13 +51,13 @@
     }
 
     .rank-circle-rim {
-      stroke: #1f2328;
+      stroke: #0969da;
       fill: none;
       stroke-width: 6;
       opacity: 0.2;
     }
     .rank-circle {
-      stroke: #1f2328;
+      stroke: #0969da;
       stroke-dasharray: 250;
       fill: none;
       stroke-width: 6;
@@ -73,7 +73,7 @@
         stroke-dashoffset: 251.32741228718345;
       }
       to {
-        stroke-dashoffset: 232.70171785895445;
+        stroke-dashoffset: 232.65172342889818;
       }
     }
   
@@ -173,7 +173,7 @@
         x="174.01"
         y="12.5"
         data-testid="commits"
-      >215</text>
+      >217</text>
     </g>
   </g><g transform="translate(0, 58)">
     <g class="stagger" style="animation-delay: 750ms" transform="translate(25, 0)">
